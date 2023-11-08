@@ -4,9 +4,9 @@
   <xacro:macro name="hk1d_urdf" params="parent prefix *origin">
 
     <!-- Color scheme -->
-    <xacro:property name="color_base" value="1.0 1.0 1.0 1.0" />
+    <xacro:property name="color_base" value="0.8 0.8 0.8 1.0" />
     <xacro:property name="color_link_1" value="0.0 0.0 0.8 1.0" />
-    <xacro:property name="color_ee_sphere" value= "1.0 0.423529411765 0.0392156862745 1.0"/>
+    <xacro:property name="color_ee_sphere" value= "1.0 0.2 0.0 1.0"/>
 
     <xacro:macro name="material" params="name color">
         <material name="${name}">
@@ -29,9 +29,9 @@
     <!-- //////////////////// base link //////////////////////-->
     <link name="${prefix}hk1d_base">
         <visual>
-            <origin rpy="0 0 0" xyz="0 0 0.1"/>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
             <geometry>
-                <box size="0.4 0.1 0.2"/>
+                <cylinder radius="0.0275" length="0.0025"/>
             </geometry>
             <xacro:material_base/>
         </visual>
@@ -44,14 +44,14 @@
     </joint>
 
     <!-- //////////////////// links //////////////////////-->
-      <link name="${prefix}link_1">
-          <visual>
-              <origin rpy="0 0 0" xyz="-0.25 0 0.25"/>
-              <geometry>
-                  <box size="0.1 0.1 0.5"/>
-              </geometry>
-              <xacro:material_link_1/>
-          </visual>
+    <link name="${prefix}link_1">
+        <visual>
+            <origin rpy="0 0 0" xyz="0.0475 0 0.0"/>
+            <geometry>
+                <box size="0.095 0.005 0.005"/>
+            </geometry>
+            <xacro:material_link_1/>
+        </visual>
       </link>
 
       <link name="${prefix}ft_sensor" />
@@ -71,18 +71,18 @@
           <origin rpy="0 0 0" xyz="0 0 0"/>
           <parent link="${prefix}hk1d_base"/>
           <child link="${prefix}link_1"/>
-          <axis xyz="1 0 0"/>
+          <axis xyz="0 0 1"/>
           <limit effort="120" velocity="50.0" lower="-20" upper="20" />
       </joint>
 
       <joint name="${prefix}link_1_to_sensor" type="fixed">
-          <origin rpy="0 0 0" xyz="0.06 0 0"/>
+          <origin rpy="0 0 0" xyz="0.07 0 0"/>
           <parent link="${prefix}link_1"/>
           <child link="${prefix}ft_sensor"/>
       </joint>
 
       <joint name="${prefix}link_1_to_ee" type="fixed">
-          <origin rpy="0 0 0" xyz="0.12 0 0"/>
+          <origin rpy="0 0 0" xyz="0.095 0 0"/>
           <parent link="${prefix}link_1"/>
           <child link="${prefix}interaction_point"/>
       </joint>

@@ -3,7 +3,7 @@
   <xacro:macro name="hk1d_gazebo" params="runtime_config_package controllers_file namespace prefix">
 
     <!-- //////////////////// GAZEBO //////////////////////-->
-    
+
     <!-- ros_control plugin -->
     <gazebo>
       <plugin filename="libgazebo_ros2_control.so" name="gazebo_ros2_control">
@@ -18,6 +18,6 @@
     </gazebo>
 
     <!-- color (TODO) -->
-    
+
   </xacro:macro>
 </robot>
