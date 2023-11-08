@@ -171,10 +171,23 @@ def generate_launch_description():
         arguments=["joint_state_broadcaster", "--controller-manager", "/controller_manager"],
     )
 
+    master_force_sensor_broadcaster_spawner = Node(
+        package="controller_manager",
+        executable="spawner",
+        arguments=["master_force_sensor_broadcaster", "--controller-manager", "/controller_manager"],
+    )
+    follower_force_sensor_broadcaster_spawner = Node(
+        package="controller_manager",
+        executable="spawner",
+        arguments=["follower_force_sensor_broadcaster", "--controller-manager", "/controller_manager"],
+    )
+
     nodes = [
         control_node,
         robot_state_pub_node,
         joint_state_broadcaster_spawner,
+        master_force_sensor_broadcaster_spawner,
+        follower_force_sensor_broadcaster_spawner,
         rviz_node,
     ]
 
