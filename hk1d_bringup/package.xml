@@ -5,7 +5,7 @@
   <version>0.0.0</version>
   <description>Package with launch files and run-time configurations for haptic kit 1 dof .</description>
 
-  <maintainer email="macbednarczyk@gmail.com">Maciej Bednarczyk</maintainer>
+  <maintainer email="alyousef@unistra.fr">Fadi Al-Masalmah</maintainer>
 
   <license>Apache-2.0</license>
 

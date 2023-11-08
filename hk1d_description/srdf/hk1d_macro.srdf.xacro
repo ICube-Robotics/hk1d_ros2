@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <xacro:macro name="hk1d_srdf" params="prefix">
+     <group name="${prefix}hk1d_joint_group">
+        <chain base_link="${prefix}hk1d_base" tip_link="${prefix}interaction_point" />
+    </group>
+
+    <group_state name="ready" group="${prefix}hk1d_joint_group">
+        <joint name="${prefix}joint_1" value="0"/>
+    </group_state>
+
+    <virtual_joint child_link="${prefix}hk1d_base" name="virtual_joint" parent_frame="world" type="floating"/>
+
+    <disable_collisions link1="${prefix}hk1d_base" link2="${prefix}link_1" reason="Adjacent" />
+    <disable_collisions link1="${prefix}hk1d_base" link2="${prefix}ft_sensor" reason="Never" />
+    <disable_collisions link1="${prefix}hk1d_base" link2="${prefix}interaction_point" reason="Never" />
+    <disable_collisions link1="${prefix}link_1" link2="${prefix}ft_sensor" reason="Adjacent" />
+    <disable_collisions link1="${prefix}link_1" link2="${prefix}interaction_point" reason="Adjacent" />
+    <disable_collisions link1="${prefix}ft_sensor" link2="${prefix}interaction_point" reason="Adjacent" />
+  </xacro:macro>
+</robot>
