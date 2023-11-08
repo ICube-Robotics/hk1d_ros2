@@ -2,6 +2,12 @@
 
 ROS2 stack to use a 1-Dof haptic kit used at the ICube laboratory.
 
+
+[![Licence](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+[![CI](../../actions/workflows/ci.yml/badge.svg?branch=main)](../../actions/workflows/ci.yml?query=branch:main)
+
+***The current devs are based on the humble ROS 2 distribution (Ubuntu 22.04 LTS)***
+
 ## Installation
 
 1) Install etherlab
