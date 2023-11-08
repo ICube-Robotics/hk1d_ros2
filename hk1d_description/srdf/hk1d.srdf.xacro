@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot xmlns:xacro="http://wiki.ros.org/xacro" name="hk1d">
+
+  <xacro:arg name="prefix" default="" />
+  <xacro:arg name="description_package" default="hk1d_description" />
+
+  <xacro:property name="description_package" value="$(arg description_package)"/>
+  <xacro:include filename="$(find ${description_package})/srdf/hk1d_macro.srdf.xacro"/>
+
+  <xacro:iiwa_srdf prefix="$(arg prefix)"/>
+
+</robot>

@@ -13,7 +13,7 @@ See for instance the [procedure](https://github.com/ICube-Robotics/ethercat_driv
 ```bash
 cd <ros_ws>/src
 git clone https://github.com/ICube-Robotics/hk1d_ros2.git
-vcs import . < src/hk1d_ros2/hk1d_ros2.repos  # MANDATORY!!!
+vcs import src < src/hk1d_ros2/hk1d_ros2.repos  # MANDATORY!!!
 rosdep install --ignore-src --from-paths . -y -r
 ```
 

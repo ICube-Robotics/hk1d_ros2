@@ -3,9 +3,8 @@
 
     <xacro:macro
         name="kk1d_r2c_hardware"
-        params="prefix use_sim use_fake_hardware command_interface runtime_config_package control_freq">
+        params="use_sim use_fake_hardware command_interface control_freq runtime_config_package">
 
-    <!-- //////////////////// ROS2 control //////////////////////-->
     <ros2_control name="hk1d_based_system" type="system">
 
         <xacro:if value="$(arg use_sim)">
@@ -26,9 +25,23 @@
                 </xacro:unless>
             </hardware>
         </xacro:unless>
+
         <xacro:include filename="$(find hk1d_description)/ros2_control/hk1d_macro_import_ec_modules.r2c_hardware.xacro"/>
+        <!-- master robot -->
         <xacro:hk1d_macro_import_ec_modules
-            prefix="$(arg prefix)"
+            prefix="master_"
+            use_fake_hardware="$(arg use_fake_hardware)"
+            command_interface="$(arg command_interface)"
+            motor_ec_id="2"
+            sensor_ec_id="3"
+            ec_config_package="$(find ${runtime_config_package})"
+            ec_motor_config_file="maxon_epos3_config.yaml"
+            ec_sensor_config_file="force_slave_config.yaml"
+        />
+
+        <!-- follower robot -->
+        <xacro:hk1d_macro_import_ec_modules
+            prefix="follower_"
             use_fake_hardware="$(arg use_fake_hardware)"
             command_interface="$(arg command_interface)"
             motor_ec_id="0"
@@ -37,6 +50,7 @@
             ec_motor_config_file="maxon_epos3_config.yaml"
             ec_sensor_config_file="force_slave_config.yaml"
         />
+
     </ros2_control>
     </xacro:macro>
 </robot>

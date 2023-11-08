@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <xacro:macro
+    name="hk1d_macro_import_ec_modules"
+    params="prefix use_fake_hardware command_interface motor_ec_id sensor_ec_id ec_config_package ec_motor_config_file ec_sensor_config_file">
+
+      <!-- Maxon motor (ethercat)  -->
+
+      <joint name="${prefix}joint_1">
+        <state_interface name="position"/>
+        <state_interface name="velocity"/>
+        <state_interface name="effort"/>
+
+        <command_interface name="${command_interface}"/>
+        <command_interface name="reset_fault"/>
+
+        <xacro:unless value="${use_fake_hardware}">
+          <ec_module name="${prefix}motor_Maxon">
+            <plugin>ethercat_generic_plugins/EcCiA402Drive</plugin>
+            <param name="alias"> 0 </param>
+            <param name="position"> ${motor_ec_id} </param>
+            <param name="mode_of_operation"> 10 </param>
+            <param name="slave_config">$(find ${ec_config_package})/config/${ec_motor_config_file}</param>
+          </ec_module>
+        </xacro:unless>
+      </joint>
+
+      <!-- ft sensor (ethercat) -->
+
+      <sensor name="${prefix}force_sensor">
+          <state_interface name="force.0"/>
+
+          <xacro:unless value="${use_fake_hardware}">
+              <ec_module name="${prefix}force_sensor">
+                  <plugin>ethercat_generic_plugins/GenericEcSlave</plugin>
+                  <param name="alias">0</param>
+                  <param name="position">${sensor_ec_id}</param>
+                  <param name="slave_config">$(find ${ec_config_package})/config/${ec_sensor_config_file}</param>
+              </ec_module>
+          </xacro:unless>
+      </sensor>
+
+  </xacro:macro>
+
+</robot>

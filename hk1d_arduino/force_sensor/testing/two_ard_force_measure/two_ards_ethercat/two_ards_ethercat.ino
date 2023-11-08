@@ -48,18 +48,18 @@ void loop()
 // this function is registered as an event, see setup()
 
 void receiveEvent(int howMany)
-{ 
-  EASYCAT.MainTask(); 
-  if(Wire.available()>=2)  
+{
+  EASYCAT.MainTask();
+  if(Wire.available()>=2)
   {
     uint8_t msb = Wire.read();
     uint8_t lsb = Wire.read();
     uint16_t value = (msb << 8) | lsb;
-    EASYCAT.BufferIn.Cust.force_0 = (uint16_t) value; 
-    // Serial.println(value);  
+    EASYCAT.BufferIn.Cust.force_0 = (uint16_t) value;
+    // Serial.println(value);
   }
   else
   {
-    Serial.print("recieved less than 2 Bytes!");
+    Serial.print("received less than 2 Bytes!");
   }
 }

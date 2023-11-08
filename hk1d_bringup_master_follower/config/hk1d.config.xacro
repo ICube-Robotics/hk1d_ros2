@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="hk1d">
+
+    <!-- Enable setting arguments from the launch file -->
+    <xacro:arg name="use_sim" default="false" />
+    <xacro:arg name="use_fake_hardware" default="true" />
+    <xacro:arg name="namespace" default="/" />
+    <xacro:arg name="command_interface" default="force" />
+
+    <xacro:arg name="runtime_config_package" default="hk1d_bringup" />
+    <xacro:arg name="controllers_file" default="hk1d_controllers.yaml" />
+
+    <xacro:property name="description_package" value="hk1d_description"/>
+
+    <!-- Declare world frame -->
+    <link name="world"/>
+    <gazebo reference="world">
+        <static>true</static>
+    </gazebo>
+
+    <!-- Import hk1d urdf file -->
+    <xacro:include filename="$(find ${description_package})/urdf/hk1d.urdf.xacro"/>
+
+    <xacro:hk1d_urdf parent="world" prefix="master_">
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+    </xacro:hk1d_urdf>
+
+    <xacro:hk1d_urdf parent="world" prefix="follower_">
+        <origin xyz="0 -0.15 0" rpy="0 0 0"/>
+    </xacro:hk1d_urdf>
+
+    <!-- Add ros2_control tags -->
+    <xacro:include filename="$(find hk1d_bringup_master_follower)/ros2_control/hk1d.r2c_hardware.xacro" />
+    <xacro:kk1d_r2c_hardware
+        use_sim="$(arg use_sim)"
+        use_fake_hardware="$(arg use_fake_hardware)"
+        command_interface="$(arg command_interface)"
+        control_freq="200"
+        runtime_config_package="$(arg runtime_config_package)"
+    />
+
+    <!-- Add gazebo tags -->
+    <xacro:if value="$(arg use_sim)">
+        <xacro:include filename="$(find ${description_package})/gazebo/hk1d.gazebo.xacro"/>
+        <xacro:iiwa_gazebo
+            prefix="$(arg prefix)"
+            namespace="$(arg namespace)"
+            runtime_config_package="$(arg runtime_config_package)"
+            controllers_file="$(arg controllers_file)"
+        />
+    </xacro:if>
+</robot>

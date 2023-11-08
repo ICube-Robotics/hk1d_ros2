@@ -26,23 +26,8 @@ def generate_launch_description():
     declared_arguments.append(
         DeclareLaunchArgument(
             'runtime_config_package',
-            default_value='hk1d_bringup',
+            default_value='hk1d_bringup_master_follower',
             description='Config package with the various runtime config files (ros2 controllers, gazebo, etc.).',
-        )
-    )
-    declared_arguments.append(
-        DeclareLaunchArgument(
-            'description_package',
-            default_value='hk1d_description',
-            description='Description package with robot URDF/xacro files. Usually the argument \
-                         is not set, it enables use of a custom description.',
-        )
-    )
-    declared_arguments.append(
-        DeclareLaunchArgument(
-            'description_file',
-            default_value='hk1d.config.xacro',
-            description='URDF/XACRO description file with the robot.',
         )
     )
     declared_arguments.append(
@@ -85,13 +70,12 @@ def generate_launch_description():
 
     # Initialize Arguments
     runtime_config_package = LaunchConfiguration('runtime_config_package')
-    description_package = LaunchConfiguration('description_package')
-    description_file = LaunchConfiguration('description_file')
     prefix = LaunchConfiguration('prefix')
     namespace = LaunchConfiguration('namespace')
     use_sim = LaunchConfiguration('use_sim')
     use_fake_hardware = LaunchConfiguration('use_fake_hardware')
     command_interface = LaunchConfiguration('command_interface')
+    description_package = "hk1d_description"
 
     # Get URDF via xacro
     robot_description_content = Command(
@@ -99,7 +83,7 @@ def generate_launch_description():
             PathJoinSubstitution([FindExecutable(name='xacro')]),
             ' ',
             PathJoinSubstitution(
-                [FindPackageShare(description_package), 'config', description_file]
+                [FindPackageShare('hk1d_bringup_master_follower'), 'config', 'hk1d.config.xacro']
             ),
             ' ',
             'prefix:=', prefix,

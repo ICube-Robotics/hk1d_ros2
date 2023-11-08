@@ -1,9 +1,0 @@
-<library path="hk1d_fake_hardware">
-  <class name="hk1d_fake_hardware/HK1D"
-         type="hk1d_fake_hardware::HK1D"
-         base_class_type="hardware_interface::SystemInterface">
-    <description>
-      Hardware Interface of a dynamically simulated Haptic_Kit_1 Dof Robot that I will later create with Maciej
-    </description>
-  </class>
-</library>

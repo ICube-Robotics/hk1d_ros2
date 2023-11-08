@@ -13,7 +13,7 @@ const int Ana5 = A5;
 unsigned long Millis = 0;
 unsigned long PreviousMillis = 0;
 
-uint8_t ind;  
+uint8_t ind;
 const uint8_t w = 3;
 uint16_t  values[w] = {0};
 
@@ -27,7 +27,7 @@ void setup()
   // ADMUX |= (1 << REFS1) | (1 << REFS0);
   analogReference(1);
   ind = 0;
-   
+
                                                                   //---- initialize the EasyCAT board -----
 
   if (EASYCAT.Init() == true)                                     // initialization
@@ -91,7 +91,7 @@ void Application ()
 
     Analog0 = analogRead(A0);                         // read analog input 0
     // Analog0 = median(Analog0) << 6 ;
-    // Analog0 = (uint16_t) 100*(1+sin(Millis/1000.0 * 3.14));       
+    // Analog0 = (uint16_t) 100*(1+sin(Millis/1000.0 * 3.14));
 
                               // normalize it on 16 bits
     EASYCAT.BufferIn.Cust.force_0 = (uint16_t) Analog0;           // and put the result into
@@ -119,7 +119,7 @@ void Application ()
                       values[i] = values[j];
                       values[j] = temp;
                   }
-              } 
+              }
     }
   return values[w/2];
  }

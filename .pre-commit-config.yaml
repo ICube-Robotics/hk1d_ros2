@@ -15,7 +15,7 @@
 #
 # See https://github.com/pre-commit/pre-commit
 
-exclude: "ft_gui/ft_gui/ft_calibration_window.py"
+exclude: "hk1d_arduino/*"
 
 repos:
   # Standard hooks
