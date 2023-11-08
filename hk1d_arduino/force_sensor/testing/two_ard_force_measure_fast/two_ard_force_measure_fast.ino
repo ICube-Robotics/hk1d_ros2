@@ -14,7 +14,7 @@ const uint8_t AnalogPin = A1;                // A1 compares to 1.1 Volt, A0 comp
 unsigned long CurrentMicros = 0;
 unsigned long PreviousMicros = 0;
 
-uint8_t ind;  
+uint8_t ind;
 short unsigned int Analog0;
 //---- setup ---------------------------------------------------------------------------------------
 
@@ -24,11 +24,11 @@ TCCR1B = (TCCR1B & 0xF8) | 0x01; // Set prescaler to 1 (no prescaling), this mak
   Serial.begin(9600);                                             // serial line initialization
   Serial.print ("\Starting Force Measurements\n");          // print the banner
 
-  analogReference(2);  // 1=VCC , 2=1.1 Volt, 
+  analogReference(2);  // 1=VCC , 2=1.1 Volt,
   ind = 0;
 
   Wire.begin();
-   
+
   PreviousMicros = micros();
   // Wire.begin(9);
 }
@@ -36,8 +36,8 @@ TCCR1B = (TCCR1B & 0xF8) | 0x01; // Set prescaler to 1 (no prescaling), this mak
 
 //---- main loop ----------------------------------------------------------------------------------------
 
-void loop()                                             
-{                                                     
+void loop()
+{
   short unsigned int  i = 0;
   uint16_t SUM = 0;
   for(i=0;i<50;i++)
@@ -45,19 +45,19 @@ void loop()
     while(micros() - PreviousMicros < 5)
     {
     }
-    PreviousMicros = micros();    
-    SUM = SUM + analogRead(A1);  
+    PreviousMicros = micros();
+    SUM = SUM + analogRead(A1);
   }
   Analog0 = SUM/50;
   CurrentMicros = micros();
-                                     
+
   Wire.beginTransmission(4); // transmit to device #4
   uint8_t msb = Analog0 >> 8; // Most significant byte
   uint8_t lsb = Analog0 & 0xFF; // Least significant byte
 
-  Wire.write(msb);              // sends one byte  
-  Wire.write(lsb); 
-  Wire.endTransmission();  
+  Wire.write(msb);              // sends one byte
+  Wire.write(lsb);
+  Wire.endTransmission();
 }
 
 //---- user application ------------------------------------------------------------------------------
@@ -74,7 +74,7 @@ void loop()
 //                      values[i] = values[j];
 //                      values[j] = temp;
 //                   }
-//              } 
+//              }
 //     }
 //   return values[w/2];
 //  }

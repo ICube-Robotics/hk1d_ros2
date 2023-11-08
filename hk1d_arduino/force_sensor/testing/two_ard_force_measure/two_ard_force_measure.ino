@@ -14,7 +14,7 @@ const int Ana5 = A5;
 unsigned long Millis = 0;
 unsigned long PreviousMillis = 0;
 
-uint8_t ind;  
+uint8_t ind;
 const uint8_t w = 3;
 uint16_t  values[w] = {0};
 
@@ -29,7 +29,7 @@ void setup()
   ind = 0;
 
   Wire.begin();
-   
+
   PreviousMillis = millis();
   // Wire.begin(9);
 }
@@ -37,8 +37,8 @@ void setup()
 
 //---- main loop ----------------------------------------------------------------------------------------
 
-void loop()                                             
-{                                                     
+void loop()
+{
 
   Application();                                        // user applications
 
@@ -61,16 +61,16 @@ void Application ()
 
     Analog0 = analogRead(A0);                         // read analog input 0
     // Analog0 = median(Analog0) << 6 ;
-    // Analog0 = (uint16_t) 100*(1+sin(Millis/1000.0 * 3.14));       
+    // Analog0 = (uint16_t) 100*(1+sin(Millis/1000.0 * 3.14));
 
     Wire.beginTransmission(4); // transmit to device #4
 
     uint8_t msb = Analog0 >> 8; // Most significant byte
     uint8_t lsb = Analog0 & 0xFF; // Least significant byte
 
-    Wire.write(msb);              // sends one byte  
-    Wire.write(lsb); 
-    Wire.endTransmission();  
+    Wire.write(msb);              // sends one byte
+    Wire.write(lsb);
+    Wire.endTransmission();
                               // normalize it on 16 bits
     // EASYCAT.BufferIn.Cust.force_0 = (uint16_t) Analog0;           // and put the result into
                                                // input Byte 0
@@ -97,7 +97,7 @@ void Application ()
 //                       values[i] = values[j];
 //                       values[j] = temp;
 //                   }
-//               } 
+//               }
 //     }
 //   return values[w/2];
 //  }

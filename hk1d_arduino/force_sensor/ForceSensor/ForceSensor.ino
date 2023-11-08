@@ -12,7 +12,7 @@ const int Ana1 = A1;                // analog input 1
 unsigned long Millis = 0;
 unsigned long PreviousMillis = 0;
 
-uint8_t ind;  
+uint8_t ind;
 const uint8_t w = 3;
 uint16_t  values[w] = {0};
 
@@ -20,13 +20,13 @@ uint16_t  values[w] = {0};
 
 void setup()
 {
-    
+
   Serial.begin(9600);                                             // serial line initialization
   Serial.print ("\nEasyCAT - Generic EtherCAT slave\n");          // print the banner
 
   // ADMUX |= (1 << REFS1) | (1 << REFS0);
   ind = 0;
-   
+
                                                                   //---- initialize the EasyCAT board -----
 
   if (EASYCAT.Init() == true)                                     // initialization
@@ -90,7 +90,7 @@ void Application ()
 
     Analog0 = analogRead(Ana0);                         // read analog input 0
     // Analog0 = median(Analog0) << 6 ;
-    Analog0 = Analog0;  
+    Analog0 = Analog0;
                               // normalize it on 16 bits
     EASYCAT.BufferIn.Cust.force_0 = (uint16_t) Analog0;           // and put the result into
                                                         // input Byte 0
@@ -117,7 +117,7 @@ void Application ()
                       values[i] = values[j];
                       values[j] = temp;
                   }
-              } 
+              }
     }
   return values[w/2];
  }
