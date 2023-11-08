@@ -1,0 +1,19 @@
+controller_manager:
+  ros__parameters:
+    update_rate: 500 # 250 Hz  #you should also change maxon_epos3_config.yaml:   - {index: 0x60C2, sub_index: 1, type: int8, value: 1} # Set interpolation time for cyclic modes, this should be equal to Ts in ms = 1000/update_rate
+
+    control_freq: 200
+
+    joint_state_broadcaster:
+      type: joint_state_broadcaster/JointStateBroadcaster
+
+    forward_effort_controller:
+      type: forward_command_controller/ForwardCommandController
+
+
+forward_position_controller:
+  ros__parameters:
+    joints:
+      - master_joint_1
+      - follower_joint_1
+    interface_name: effort
