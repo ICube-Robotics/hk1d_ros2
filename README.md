@@ -1,6 +1,6 @@
 # hk1d_ros2
 
-ROS2 stack to use a 1-Dof haptic kit used at the ICube laboratory.
+ROS2 control stack for a 1-Dof haptic kit used at the ICube laboratory.
 
 
 [![Licence](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
