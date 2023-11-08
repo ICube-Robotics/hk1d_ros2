@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="hk1d">
+
+    <!-- Enable setting arguments from the launch file -->
+    <xacro:arg name="isReal_Slave" default="false" />
+    <xacro:arg name="isReal_Master" default="false" />
+    <xacro:arg name="control_freq" default="200" />
+    <xacro:arg name="Ts" default="0.005" />
+
+
+
+    <!-- Import iiwa urdf file -->
+    <xacro:include filename="$(find hk1d_description)/urdf/hk1d.urdf" />
+
+    <!-- Import iiwa ros2_control description -->
+    <xacro:include filename="$(find hk1d_description)/ros2_control/hk1d.r2c_hardware.xacro" />
+
+    <xacro:hk1d_ros2_control name="HK1D_HW_Interface"  isReal_Slave="$(arg isReal_Slave)" isReal_Master="$(arg isReal_Master)" control_freq="$(arg control_freq)" Ts="$(arg Ts)"/>
+</robot>

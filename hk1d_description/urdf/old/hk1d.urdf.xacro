@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!-- Revolute-Revolute Manipulator -->
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="hk1d">
+
+  <!-- Import HK1D macro -->
+  <xacro:include filename="$(find hk1d_description)/urdf/hk1d_description.urdf.xacro" />
+
+  <!-- Import HK1D ros2_control description -->
+  <xacro:include filename="$(find hk1d_description)/ros2_control/hk1d.ros2_control.xacro" />
+
+  <!-- Used for fixing robot -->
+  <link name="world"/>
+
+  <xacro:hk1d parent="world">
+    <origin xyz="0 0 0" rpy="1.57 0 0" />
+  </xacro:hk1d>
+
+  <xacro:hk1d_ros2_control
+    name="HK1D" />
+
+</robot>

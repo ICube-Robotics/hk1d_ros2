@@ -1,0 +1,118 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+    <xacro:macro name="hk1d_ros2_control" params="name isReal_Slave isReal_Master control_freq Ts">
+        <xacro:if value="$(arg isReal_Master)">
+            <ros2_control name="${name}_Operator_N_Remote" type="system">
+                <!-- <Operator robot joint> -->
+                <hardware>
+                    <plugin>ethercat_driver/EthercatDriver</plugin>
+                    <param name="master_id">0</param>
+                    <param name="control_frequency">$(arg control_freq)</param>
+                </hardware>
+                <joint name="operator_joint_1">
+                    <state_interface name="position"/>
+                    <state_interface name="velocity"/>
+                    <state_interface name="effort"/>
+                    <!-- <state_interface name="external_effort"/> -->
+                    <command_interface name="effort"/>
+                    <command_interface name="reset_fault"/>
+                    <ec_module name="Maxon">
+                        <plugin>ethercat_generic_plugins/EcCiA402Drive</plugin>
+                        <param name="alias">0</param>
+                        <param name="position">2</param>
+                        <param name="mode_of_operation">10</param>
+                        <param name="slave_config">$(find hk1d_bringup)/config/maxon_epos3_config.yaml</param>
+                    </ec_module>
+                </joint>
+                <!-- <============================================> -->
+                <!-- <fh sensor> -->
+                
+                <sensor name="operator_force_sensor">
+                    <state_interface name="force.0"/>
+                    <!-- <state_interface name="force.1"/> -->
+                    <ec_module name="operator_force_sensor">
+                    <plugin>ethercat_generic_plugins/GenericEcSlave</plugin>
+                    <param name="alias">0</param>
+                    <param name="position">3</param>
+                    <param name="slave_config">$(find hk1d_bringup)/config/force_slave_config.yaml</param>
+                    </ec_module>
+                </sensor>
+
+                <xacro:if value="$(arg isReal_Slave)">
+                    <!-- <remote robot joint> -->
+                    <joint name="remote_joint_1">
+                        <state_interface name="position"/>
+                        <state_interface name="velocity"/>
+                        <state_interface name="effort"/>
+                        <!-- <state_interface name="external_effort"/> -->
+                        <command_interface name="effort"/>
+                        <command_interface name="reset_fault"/>
+                        <ec_module name="Maxon">
+                            <plugin>ethercat_generic_plugins/EcCiA402Drive</plugin>
+                            <param name="alias">0</param>
+                            <param name="position">0</param>
+                            <param name="mode_of_operation">10</param>
+                            <param name="slave_config">$(find hk1d_bringup)/config/maxon_epos3_config.yaml</param>
+                        </ec_module>
+                    </joint>
+                    <!-- <============================================> -->
+                    <!-- <Fe sensor> -->
+                    
+                    <sensor name="remote_force_sensor">
+                        <state_interface name="force.0"/>
+                        <!-- <state_interface name="force.1"/> -->
+                        <ec_module name="force_sensor">
+                        <plugin>ethercat_generic_plugins/GenericEcSlave</plugin>
+                        <param name="alias">0</param>
+                        <param name="position">1</param>
+                        <param name="slave_config">$(find hk1d_bringup)/config/force_slave_config.yaml</param>
+                        </ec_module>
+                    </sensor>
+                </xacro:if> 
+            </ros2_control>
+
+            <xacro:unless value="$(arg isReal_Slave)">
+                <ros2_control name="${name}_Remote" type="system">
+                    <hardware>
+                        <plugin>hk1d_remote_fake_hardware/HK1D_REMOTE</plugin>
+                        <param name="Ts">$(arg Ts)</param>
+                    </hardware>
+                    <joint name="remote_joint_1">
+                        <command_interface name="effort" />
+                        <state_interface name="position"/>
+                        <state_interface name="velocity"/>
+                        <state_interface name="effort"/>
+                        <!-- <state_interface name="remote_force_sensor/force.0"/> -->
+                    </joint>
+                    <sensor name="remote_force_sensor">
+                        <state_interface name="force.0"/>
+                        <!-- <state_interface name="force.1"/> -->
+                    </sensor>
+                </ros2_control>
+            </xacro:unless>
+        </xacro:if>
+
+        <xacro:unless value="$(arg isReal_Master)">
+            <ros2_control name="${name}" type="system">
+                <hardware>
+                    <plugin>hk1d_fake_hardware/HK1D</plugin>
+                </hardware>
+                <joint name="hk1d_joint_1">
+                    <command_interface name="effort" />
+                    <state_interface name="position"/>
+                    <state_interface name="velocity"/>
+                    <state_interface name="external_effort"/>
+                </joint>
+                <joint name="hk1d_joint_2">
+                    <command_interface name="effort" />
+                    <state_interface name="position"/>
+                    <state_interface name="velocity"/>
+                    <state_interface name="external_effort"/>
+                </joint>
+            </ros2_control>
+        </xacro:unless>
+
+    </xacro:macro>
+
+</robot>
