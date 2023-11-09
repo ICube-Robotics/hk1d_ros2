@@ -1,0 +1,53 @@
+controller_manager:
+  ros__parameters:
+    update_rate: 500 # 250 Hz  #you should also change maxon_epos3_config.yaml:   - {index: 0x60C2, sub_index: 1, type: int8, value: 1} # Set interpolation time for cyclic modes, this should be equal to Ts in ms = 1000/update_rate
+
+    control_freq: 200
+
+    # Broadcasters
+    joint_state_broadcaster:
+      type: joint_state_broadcaster/JointStateBroadcaster
+
+    master_force_sensor_broadcaster:
+      type: force_torque_sensor_broadcaster/ForceTorqueSensorBroadcaster
+
+    follower_force_sensor_broadcaster:
+      type: force_torque_sensor_broadcaster/ForceTorqueSensorBroadcaster
+
+    # Controllers
+    forward_effort_controller:
+      type: forward_command_controller/ForwardCommandController
+
+    # Mock components
+    mock_follower_force_sensor:
+      type: forward_command_controller/ForwardCommandController
+
+# Broadcasters
+master_force_sensor_broadcaster:
+  ros__parameters:
+    frame_id: master_ft_sensor
+    interface_names:
+      force:
+        x: master_ft_sensor/force.0
+
+follower_force_sensor_broadcaster:
+  ros__parameters:
+    frame_id: follower_ft_sensor
+    interface_names:
+      force:
+        x: follower_ft_sensor/force.0
+
+# Controllers
+forward_position_controller:
+  ros__parameters:
+    joints:
+      - master_joint_1
+      - follower_joint_1
+    interface_name: effort
+
+# Mock components
+mock_follower_force_sensor:
+  ros__parameters:
+    joints:
+      - master_force_sensor
+    interface_name: force.0
