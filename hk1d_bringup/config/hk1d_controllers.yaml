@@ -10,10 +10,20 @@ controller_manager:
     forward_effort_controller:
       type: forward_command_controller/ForwardCommandController
 
+    mock_system_controller:
+      type: hk1d_mock_robot/Hk1dMockRobot
 
-forward_position_controller:
+
+forward_effort_controller:
   ros__parameters:
     joints:
-      - joint1
-      - joint2
+      - joint_1
     interface_name: effort
+
+
+mock_system_controller:
+  ros__parameters:
+    joint_name: joint_1
+    ft_sensor:
+      frame: ft_sensor
+      interface_name: force_sensor/force.0

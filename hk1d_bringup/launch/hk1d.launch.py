@@ -15,6 +15,7 @@
 
 from launch import LaunchDescription
 from launch.actions import DeclareLaunchArgument
+from launch.conditions import IfCondition
 from launch.substitutions import Command, FindExecutable, LaunchConfiguration, PathJoinSubstitution
 from launch_ros.actions import Node
 from launch_ros.substitutions import FindPackageShare
@@ -187,10 +188,26 @@ def generate_launch_description():
         arguments=["joint_state_broadcaster", "--controller-manager", "/controller_manager"],
     )
 
+    mock_system_spawner = Node(
+        package="controller_manager",
+        executable="spawner",
+        arguments=["mock_system_controller", "--controller-manager", "/controller_manager"],
+        condition=IfCondition(use_fake_hardware),
+    )
+
+    force_forward_controller_spawner = Node(
+        package="controller_manager",
+        executable="spawner",
+        arguments=["forward_effort_controller", "--controller-manager", "/controller_manager"],
+        condition=IfCondition(use_fake_hardware),
+    )
+
     nodes = [
         control_node,
         robot_state_pub_node,
         joint_state_broadcaster_spawner,
+        mock_system_spawner,
+        force_forward_controller_spawner,
         rviz_node,
     ]
 
