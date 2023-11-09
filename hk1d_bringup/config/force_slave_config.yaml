@@ -1,0 +1,10 @@
+# Configuration file for EasyCAT based ForceSensor Slave
+vendor_id: 0x0000079a
+product_id: 0xdeadbeef
+tpdo:  # TxPDO
+  - index: 0x1a00
+    channels:
+      - {index: 0x0006, sub_index: 1, type: int16, state_interface: force.0, factor: 0.0028, offset: -0.924}  # mNm on the joint #factor:   fh   = fh / KN * L; // tics to N.m projected on the robot joint in SI, where KN:  K100g*10/9.8  //tics per Newton (10 to go from 100g -> 1kg, 9.8: Kg->N), and K100g=158 // for l=7.25cm ->0.00203,-0.67
+      - {index: 0x0006, sub_index: 2, type: int16, state_interface: force.1}
+sm:  # Sync Manager
+  - {index: 0, type: input, pdo: tpdo, watchdog: disable}
