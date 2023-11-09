@@ -21,6 +21,30 @@ hk1d_mock_robot:
       default_value: 0.05,
       description: "Specifies the filter coefficient for the sensor's exponential filter."
     }
+  simulation:
+    env:
+      stiffness: {
+        type: double,
+        default_value: 100.0,
+        }
+      damping: {
+        type: double,
+        default_value: 8.0,
+        }
+    robot:
+      stiffness: {
+        type: double,
+        default_value: 52.0,
+        }
+      damping: {
+        type: double,
+        default_value: 8.0,
+        }
+      mass: {
+        type: double,
+        default_value: 0.25,
+        }
+
 
 
   # general settings

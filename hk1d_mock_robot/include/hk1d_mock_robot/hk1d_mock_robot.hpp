@@ -39,7 +39,6 @@
 // #include "semantic_components/force_torque_sensor.hpp"
 
 
-
 namespace hk1d_mock_robot
 {
 

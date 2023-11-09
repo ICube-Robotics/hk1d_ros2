@@ -187,6 +187,11 @@ def generate_launch_description():
         executable="spawner",
         arguments=["joint_state_broadcaster", "--controller-manager", "/controller_manager"],
     )
+    force_sensor_broadcaster_spawner = Node(
+        package="controller_manager",
+        executable="spawner",
+        arguments=["force_sensor_broadcaster", "--controller-manager", "/controller_manager"],
+    )
 
     mock_system_spawner = Node(
         package="controller_manager",
@@ -206,6 +211,7 @@ def generate_launch_description():
         control_node,
         robot_state_pub_node,
         joint_state_broadcaster_spawner,
+        force_sensor_broadcaster_spawner,
         mock_system_spawner,
         force_forward_controller_spawner,
         rviz_node,
