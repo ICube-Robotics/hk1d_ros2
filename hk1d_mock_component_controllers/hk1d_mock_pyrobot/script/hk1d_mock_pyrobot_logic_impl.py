@@ -12,6 +12,39 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-def pytroller_logic_impl(period, states, commands, msg, params):
+import numpy as np
+def pytroller_logic_impl(states, commands, msg, params):
+  # controller sampling time
+  Ts = 0.002
+  # env
+  ke = 100.0
+  be = 8.0
+  # robot
+  ks = 52.
+  bs = 8.0
+  ms = 0.25
+  dist_joint_to_sensor = 0.07
+
+  A = np.array([
+    [1.0, Ts],
+    [-(ks + ke) / ms * Ts, 1 - (bs + be) / ms * Ts]
+  ])
+  B = np.array([
+    [0.0],
+    [Ts *1 / ms]
+  ])
+  C = np.array([[ke, be]])
+
+  tau = np.array([states[b'joint_1/effort']]).reshape((-1,1))
+  X_last = np.array([
+     states[b'joint_1/position'],
+     states[b'joint_1/velocity'],
+  ]).reshape((-1,1))
+  X = A @ X_last + B @ tau
+  Fe = dist_joint_to_sensor * C @ X
+
+  commands[b'joint_1/position'] = X[0]
+  commands[b'joint_1/velocity'] = X[1]
+  commands[b'force_sensor/force.0'] = Fe[0]
 
   return commands
