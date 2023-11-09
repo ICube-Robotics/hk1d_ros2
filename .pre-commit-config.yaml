@@ -15,7 +15,11 @@
 #
 # See https://github.com/pre-commit/pre-commit
 
-exclude: "hk1d_arduino/*"
+exclude: |
+    (?x)(
+        ^hk1d_arduino/|
+        ^hk1d_mock_component_controllers/hk1d_mock_pyrobot/
+    )
 
 repos:
   # Standard hooks
