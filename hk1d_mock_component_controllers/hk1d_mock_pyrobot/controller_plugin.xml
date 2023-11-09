@@ -1,0 +1,9 @@
+<library path="hk1d_mock_pyrobot">
+  <class name="hk1d_mock_pyrobot/Hk1DMockPyrobot"
+        type="hk1d_mock_pyrobot::Hk1DMockPyrobot"
+        base_class_type="controller_interface::ControllerInterface">
+  <description>
+    Python controller for ros2_control
+  </description>
+  </class>
+</library>

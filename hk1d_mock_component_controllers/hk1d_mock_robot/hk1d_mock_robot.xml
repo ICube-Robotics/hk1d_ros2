@@ -1,0 +1,9 @@
+<library path="hk1d_mock_robot">
+  <class name="hk1d_mock_robot/Hk1dMockRobot"
+         type="hk1d_mock_robot::Hk1dMockRobot"
+         base_class_type="controller_interface::ControllerInterface">
+    <description>
+      Mock hk1d robot for simulation.
+    </description>
+  </class>
+</library>
