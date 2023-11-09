@@ -14,8 +14,6 @@
 //
 /// \authors: Thibault Poignonec
 
-// Based on package "ros2_controllers/admittance_controller", Copyright (c) 2022, PickNik, Inc.
-
 #ifndef HK1D_MOCK_ROBOT__HK1D_MOCK_ROBOT_HPP_
 #define HK1D_MOCK_ROBOT__HK1D_MOCK_ROBOT_HPP_
 

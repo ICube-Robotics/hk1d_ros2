@@ -14,7 +14,8 @@
 //
 /// \authors: Thibault Poignonec
 
-#include "hk1d_mock_robot/hk1d_mock_robot.hpp"
+#include <Eigen/Dense>
+
 #include <chrono>
 #include <cmath>
 #include <functional>
@@ -22,7 +23,8 @@
 #include <string>
 #include <vector>
 
-#include <Eigen/Dense>
+#include "hk1d_mock_robot/hk1d_mock_robot.hpp"
+
 
 namespace hk1d_mock_robot
 {
