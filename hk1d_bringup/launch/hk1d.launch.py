@@ -193,10 +193,11 @@ def generate_launch_description():
         arguments=["force_sensor_broadcaster", "--controller-manager", "/controller_manager"],
     )
 
+    mock_controller_name = "mock_system_pycontroller"
     mock_system_spawner = Node(
         package="controller_manager",
         executable="spawner",
-        arguments=["mock_system_controller", "--controller-manager", "/controller_manager"],
+        arguments=[mock_controller_name, "--controller-manager", "/controller_manager"],
         condition=IfCondition(use_fake_hardware),
     )
 

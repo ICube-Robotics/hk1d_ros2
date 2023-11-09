@@ -16,6 +16,18 @@ controller_manager:
     mock_system_controller:
       type: hk1d_mock_robot/Hk1dMockRobot
 
+    mock_system_pycontroller:
+      type: hk1d_mock_pyrobot/Hk1DMockPyrobot
+
+mock_system_pycontroller:
+  ros__parameters:
+    joints:
+      - joint_1
+      - force_sensor
+    interface_full_names:
+      - joint_1/position
+      - joint_1/velocity
+      - force_sensor/force.0
 
 force_sensor_broadcaster:
   ros__parameters:
