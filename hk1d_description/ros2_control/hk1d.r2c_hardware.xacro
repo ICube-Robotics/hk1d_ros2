@@ -17,7 +17,8 @@
             <hardware>
                 <xacro:if value="${use_fake_hardware}">
                     <plugin>mock_components/GenericSystem</plugin>
-                    <param name="calculate_dynamics">true</param>
+                    <param name="calculate_dynamics">false</param>
+                    <param name="mock_sensor_commands">true</param>
                 </xacro:if>
                 <xacro:unless value="${use_fake_hardware}">
                         <plugin> ethercat_driver/EthercatDriver </plugin>
