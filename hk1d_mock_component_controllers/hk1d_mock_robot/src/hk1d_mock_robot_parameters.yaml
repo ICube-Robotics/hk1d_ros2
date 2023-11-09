@@ -1,0 +1,60 @@
+hk1d_mock_robot:
+  joint_name: {
+    type: string,
+    description: "Specifies the name of the robot joint that will be used by the controller. ",
+    read_only: true
+  }
+
+  ft_sensor:
+    interface_name: {
+      type: string,
+      description: "Specifies the name of the force sensor state interface which will be used."
+    }
+    frame:
+      id: {
+        type: string,
+        description: "Specifies the frame/link name of the force sensor.",
+        default_value: "ft_sensor",
+      }
+    filter_coefficient: {
+      type: double,
+      default_value: 0.05,
+      description: "Specifies the filter coefficient for the sensor's exponential filter."
+    }
+  simulation:
+    env:
+      stiffness: {
+        type: double,
+        default_value: 100.0,
+        }
+      damping: {
+        type: double,
+        default_value: 8.0,
+        }
+    robot:
+      stiffness: {
+        type: double,
+        default_value: 52.0,
+        }
+      damping: {
+        type: double,
+        default_value: 8.0,
+        }
+      mass: {
+        type: double,
+        default_value: 0.25,
+        }
+
+
+
+  # general settings
+  robot_description: {
+    type: string,
+    description: "Contains robot description in URDF format. The description is used for forward and inverse kinematics.",
+    read_only: true
+  }
+  enable_parameter_update_without_reactivation: {
+    type: bool,
+    default_value: true,
+    description: "If enabled, the parameters will be dynamically updated while the controller is running."
+  }
