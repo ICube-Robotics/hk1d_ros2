@@ -15,7 +15,6 @@
 import numpy as np
 
 
-
 def pytroller_logic_impl(period, states, commands, msg, params):
     # controller sampling time
     Ts = period
