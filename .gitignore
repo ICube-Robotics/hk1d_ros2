@@ -1,0 +1,5 @@
+install/**
+build/**
+log/**
+
+hk1d_mock_component_controllers/hk1d_mock_pyrobot/**
