@@ -16,7 +16,7 @@ jobs:
           path: src/hk1d_ros2
 
       - name: Build Docker Image
-        uses: docker/build-push-action@v5
+        uses: docker/build-push-action@v6
         with:
           tags: hk1d_ros2:humble
           file: .docker/Dockerfile
